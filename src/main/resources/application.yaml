@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: reminder
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+  liquibase:
+    enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: ${BD_PG_NAME}
+    password: ${BD_PG_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  mail:
+    host: smtp.yandex.com
+    port: 465
+    username: ${YANDEX_MAIL}
+    password: ${YANDEX_PASS}
+    properties:
+      mail:
+        smtp:
+          auto: true
+          startles:
+            enable: true
+        debug: true
+    protocol: smtps
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 729103189320-9ro6fr8h71ds02e4kh1b5i26nnk4dtml.apps.googleusercontent.com
+            client-secret: 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
+            scope: profile, email
+            redirect-uri: "{baseUrl}/login/oauth2/code/google"
+
