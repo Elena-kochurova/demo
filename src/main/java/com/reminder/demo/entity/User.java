@@ -1,5 +1,7 @@
 package com.reminder.demo.entity;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.reminder.demo.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +15,15 @@ public class User {
     public User() {
     }
 
+    public User(Long id, String username, String password, String oauth2Provider, String email, List<Reminder> reminders) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.oauth2Provider = oauth2Provider;
+        this.email = email;
+        this.reminders = reminders;
+    }
+
     public Long getId() {
         return id;
     }
@@ -23,6 +34,10 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public UserDto usersToDto(User user, ObjectMapper objectMapper) {
+        return objectMapper.convertValue(user, UserDto.class);
     }
 
     public void setUsername(String username) {

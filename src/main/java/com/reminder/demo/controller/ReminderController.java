@@ -1,9 +1,11 @@
 package com.reminder.demo.controller;
 
 
+import com.reminder.demo.dto.UserDto;
 import com.reminder.demo.entity.Reminder;
 import com.reminder.demo.repository.ReminderRepository;
 import com.reminder.demo.service.ReminderService;
+import com.reminder.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,8 +21,14 @@ import java.time.LocalDateTime;
 @RequestMapping("api/users/{userId}/reminders")
 public class ReminderController {
 
+    public ReminderController(ReminderService reminderService, UserService userService) {
+        this.reminderService = reminderService;
+        this.userService = userService;
+    }
+
     @Autowired
     private ReminderService reminderService;
+    private UserService userService;
 
     @GetMapping("/getAllReminders")
     public Page<Reminder> getAllRemindersByUser(
@@ -93,5 +101,10 @@ public class ReminderController {
     }
 
 
+
+    @GetMapping("/getUser")
+    public UserDto getUserDetail() {
+        return userService.getUser();
+    }
 
 }
